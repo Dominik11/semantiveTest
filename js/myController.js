@@ -6,6 +6,9 @@ angular.module('myApp')
 
         $scope.addRectangle = function (rectangle) {
             $scope.rectangleForm.rectangleNumber.$setValidity('uniqueNumberError', checkUniqueNumber(rectangle.number));
+            console.log(checkCombination(rectangle));
+            $scope.rectangleForm.$setValidity('combinationError', checkCombination(rectangle));
+
             if ($scope.rectangleForm.$valid) {
                 $scope.rectangles.push(angular.copy(rectangle));
                 $scope.newRectangle = null;
@@ -44,5 +47,12 @@ angular.module('myApp')
                 }
             });
             return result;
+        };
+        var checkCombination = function (rectangle) {
+            if (rectangle.number % 2 === 0 && (rectangle.color === 'red' || rectangle.color === 'green')) {
+                return false;
+            } else {
+                return true;
+            }
         };
     });

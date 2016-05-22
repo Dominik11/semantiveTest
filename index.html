@@ -10,7 +10,6 @@
     <script src="js/angular.min.js"></script>
     <script src="js/myApp.js"></script>
     <script src="js/myController.js"></script>
-    <script src="js/directives.js"></script>
 </head>
 <body ng-controller="myController">
 <div class="container " style="background:#A5A5A5">
@@ -89,10 +88,16 @@
                 </div>
             </div>
             <div class="col-sm-6 ">
-                <div class="form-group">
+                <div style="margin-bottom:10px;">
                     <h4><strong>Wizualizacja:</strong></h4>
                     <div style="width :{{newRectangle.size}}px;height:{{newRectangle.size}}px;background-color:{{newRectangle.color}}">
                     </div>
+                </div>
+                <div ng-show="rectangleForm.$invalid && rectangleForm.submitted && rectangleForm.$error.combinationError"
+                     class="alert alert-danger">
+                    <p>
+                        Prostokąt o numerze parzystym nie może być koloru czerwonego lub zielonego!
+                    </p>
                 </div>
             </div>
             <div class='col-sm-12' style="margin-bottom:10px">
@@ -118,7 +123,7 @@
         <tr ng-repeat="r in rectangles">
             <td>{{r.number}}</td>
             <td>{{setColor(r.color)}}</td>
-            <td>{{setSize(r.size)}}</td> 
+            <td>{{setSize(r.size)}}</td>
             <td>
                 <div style="width : {{r.size}}px;height:{{r.size}}px;background-color:{{r.color}}">
                 </div>
