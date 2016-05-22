@@ -88,6 +88,13 @@
                     </div>
                 </div>
             </div>
+            <div class="col-sm-6 ">
+                <div class="form-group">
+                    <h4><strong>Wizualizacja:</strong></h4>
+                    <div style="width :{{newRectangle.size}}px;height:{{newRectangle.size}}px;background-color:{{newRectangle.color}}">
+                    </div>
+                </div>
+            </div>
             <div class='col-sm-12' style="margin-bottom:10px">
                 <div class='col-sm-6'>
                     <button type="submit" class="btn btn-success btn-lg col-sm-offset-3">Zapisz</button>
@@ -104,13 +111,18 @@
             <th># Numer</th>
             <th>Kolor</th>
             <th>Rozmiar</th>
+            <th>Podgląd</th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="r in rectangles">
             <td>{{r.number}}</td>
             <td>{{setColor(r.color)}}</td>
-            <td>{{setSize(r.size)}}</td>
+            <td>{{setSize(r.size)}}</td> 
+            <td>
+                <div style="width : {{r.size}}px;height:{{r.size}}px;background-color:{{r.color}}">
+                </div>
+            </td>
         </tr>
         </tbody>
     </table>
