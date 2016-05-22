@@ -5,8 +5,14 @@ angular.module('myApp')
         $scope.rectangles = [];
 
         $scope.addRectangle = function (rectangle) {
-            $scope.rectangles.push(angular.copy(rectangle));
-            $scope.newRectangle = null;
+            $scope.rectangleForm.rectangleNumber.$setValidity('uniqueNumberError', checkUniqueNumber(rectangle.number));
+            if ($scope.rectangleForm.$valid) {
+                $scope.rectangles.push(angular.copy(rectangle));
+                $scope.newRectangle = null;
+                $scope.rectangleForm.submitted = false;
+            } else {
+                $scope.rectangleForm.submitted = true;
+            }
         };
         $scope.setColor = function (color) {
             if (color && color === 'yellow') {
@@ -29,5 +35,14 @@ angular.module('myApp')
             } else if (size && size === '100') {
                 return 'XL';
             }
+        };
+        var checkUniqueNumber = function (number) {
+            var result = true;
+            angular.forEach($scope.rectangles, function (rectangle) {
+                if (rectangle.number === number) {
+                    result = false;
+                }
+            });
+            return result;
         };
     });

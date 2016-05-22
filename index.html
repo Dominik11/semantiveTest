@@ -10,41 +10,80 @@
     <script src="js/angular.min.js"></script>
     <script src="js/myApp.js"></script>
     <script src="js/myController.js"></script>
+    <script src="js/directives.js"></script>
 </head>
 <body ng-controller="myController">
 <div class="container " style="background:#A5A5A5">
     <h2>Dodaj prostokąt</h2>
     <div class="row col-sm-12">
-        <form class="form-horizontal" name="rectangleForm" ng-submit="addRectangle(newRectangle)">
+        <form class="form-horizontal" name="rectangleForm" ng-submit="addRectangle(newRectangle)" novalidate>
             <div class="col-sm-6 ">
                 <div class="form-group col-sm-12 ">
                     <label class="col-sm-3 control-label">Numer:</label>
-                    <div class="col-sm-8"><input ng-model="newRectangle.number" type="number" class="form-control"/></div>
+                    <div class="col-sm-8"><input ng-model="newRectangle.number" type="number" class="form-control"
+                                                 name="rectangleNumber" min="12" max="100" required/>
+                        <div ng-show="rectangleForm.rectangleNumber.$invalid && rectangleForm.submitted">
+                            <p class="text-danger"
+                               ng-show="rectangleForm.rectangleNumber.$error.required">
+                                Pole jest wymagane
+                            </p>
+                            <p class="text-danger"
+                               ng-show="rectangleForm.rectangleNumber.$error.min">
+                                Minimalna wartość : 12
+                            </p>
+                            <p class="text-danger"
+                               ng-show="rectangleForm.rectangleNumber.$error.max">
+                                Maksymalna wartość : 100
+                            </p>
+                            <p class="text-danger"
+                               ng-show="rectangleForm.rectangleNumber.$error.uniqueNumberError">
+                                Numer musi być unikalny
+                            </p>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group col-sm-12 ">
                     <label class="col-sm-3 control-label">Kolor:</label>
-                    <div class="col-sm-8"><select class="form-control input-sm" ng-model="newRectangle.color">
+                    <div class="col-sm-8"><select class="form-control input-sm" ng-model="newRectangle.color"
+                                                  name="rectangleColor" required>
+                        <option value="">Wybierz kolor</option>
                         <option value="red">czerwony</option>
                         <option value="yellow">żółty</option>
                         <option value="green">zielony</option>
                         <option value="blue">niebieski</option>
-                    </select></div>
+                    </select>
+                        <div ng-show="rectangleForm.rectangleColor.$invalid && rectangleForm.submitted">
+                            <p class="text-danger"
+                               ng-show="rectangleForm.rectangleColor.$error.required">
+                                Pole jest wymagane
+                            </p>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group col-sm-12">
                     <label class="col-sm-3 control-label">Rozmiar:</label>
                     <div class="col-sm-8">
                         <div class="radio">
-                            <label><input ng-model="newRectangle.size" type="radio" name="opt" value="25">S</label>
+                            <label><input ng-model="newRectangle.size" type="radio" name="opt" value="25"
+                                          required/>S</label>
                         </div>
                         <div class="radio">
-                            <label><input ng-model="newRectangle.size" type="radio" name="opt" value="50">M</label>
+                            <label><input ng-model="newRectangle.size" type="radio" name="opt" value="50"
+                                          required/>M</label>
                         </div>
                         <div class="radio">
-                            <label><input ng-model="newRectangle.size" type="radio" name="opt" value="75">L</label>
+                            <label><input ng-model="newRectangle.size" type="radio" name="opt" value="75"
+                                          required/>L</label>
                         </div>
                         <div class="radio">
                             <label><input ng-model="newRectangle.size" type="radio" name="opt"
-                                          value="100">XL</label>
+                                          value="100" required/>XL</label>
+                        </div>
+                        <div ng-show="rectangleForm.opt.$invalid && rectangleForm.submitted">
+                            <p class="text-danger"
+                               ng-show="rectangleForm.opt.$error.required">
+                                Pole jest wymagane
+                            </p>
                         </div>
                     </div>
                 </div>
